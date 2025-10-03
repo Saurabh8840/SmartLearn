@@ -6,14 +6,16 @@ SmartLearn is a full-stack LMS platform built to streamline course creation, con
 
 ## 📸 Screenshots
 
-### 🏠 Landing Page
-![Landing Page](./assets/screenshots/landing-page.png)
+### 🏠 Course Page
+![Course Page](./client/src/assets/screenshots/coursepage.jpg)
 
-### 🎓 Instructor Dashboard
-![Dashboard](./assets/screenshots/dashboard.png)
 
-### 💳 Payment Flow
-![Payment Flow](./assets/screenshots/payment-flow.png)
+
+### 🎓  Dashboard
+![Dashboard](./client/src/assets/screenshots/dashboard.jpg)
+
+### 💳 FirstPage Flow
+![First Page](./client/src/assets/screenshots/firstpage.jpg)
 
 
 ## 🚀 Features
