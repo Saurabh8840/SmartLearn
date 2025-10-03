@@ -14,6 +14,7 @@ const Footer = () => {
       <div className='flex items-center gap-3 max-md:mt-4'>
         <a href="#">
           <img src={assets.facebook_icon} alt="facebook_icon" />
+          
         </a>
         <a href="#">
           <img src={assets.twitter_logo} alt="twitter_icon" />
