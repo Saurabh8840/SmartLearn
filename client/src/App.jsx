@@ -9,17 +9,21 @@ import AddCourse from './pages/educator/AddCourse'
 import MyCourses from './pages/educator/MyCourses'
 import StudentsEnrolled from './pages/educator/StudentsEnrolled'
 import Educator from './pages/educator/Educator'
-import "quill/dist/quill.snow.css";
-
+import 'quill/dist/quill.snow.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
 import Player from './pages/student/Player'
 import MyEnrollments from './pages/student/MyEnrollments'
 import Loading from './components/student/Loading'
 
 const App = () => {
+
   const isEducatorRoute = useMatch('/educator/*');
 
   return (
     <div className="text-default min-h-screen bg-white">
+      <ToastContainer />
+      {/* Render Student Navbar only if not on educator routes */}
       {!isEducatorRoute && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />

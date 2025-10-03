@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { assets } from '../../assets/assets';
+
 const Companies = () => {
   return (
     <div className="pt-16">
@@ -13,6 +14,6 @@ const Companies = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Companies
+export default Companies;

@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { assets } from '../../assets/assets';
+import { toast } from 'react-toastify'
 import Quill from 'quill';
 import uniqid from 'uniqid';
+import axios from 'axios'
+import { AppContext } from '../../context/AppContext';
 
 const AddCourse = () => {
 
   const editorRef = useRef(null);
   const quillRef = useRef(null);
+
+  const { backendUrl, getToken } = useContext(AppContext)
 
   const [courseTitle, setCourseTitle] = useState('')
   const [coursePrice, setCoursePrice] = useState(0)
@@ -21,7 +26,6 @@ const AddCourse = () => {
     lectureUrl: '',
     isPreviewFree: false,
   });
-
 
   const handleChapter = (action, chapterId) => {
     if (action === 'add') {
@@ -62,6 +66,7 @@ const AddCourse = () => {
       );
     }
   };
+
   const addLecture = () => {
     setChapters(
       chapters.map((chapter) => {
@@ -84,10 +89,51 @@ const AddCourse = () => {
       isPreviewFree: false,
     });
   };
+
   const handleSubmit = async (e) => {
-    e.preventDefault()
-  }
-  
+    try {
+
+      e.preventDefault();
+
+      if (!image) {
+        toast.error('Thumbnail Not Selected')
+      }
+
+      const courseData = {
+        courseTitle,
+        courseDescription: quillRef.current.root.innerHTML,
+        coursePrice: Number(coursePrice),
+        discount: Number(discount),
+        courseContent: chapters,
+      }
+
+      const formData = new FormData()
+      formData.append('courseData', JSON.stringify(courseData))
+      formData.append('image', image)
+
+      const token = await getToken()
+
+      const { data } = await axios.post(backendUrl + '/api/educator/add-course', formData,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+
+      if (data.success) {
+        toast.success(data.message)
+        setCourseTitle('')
+        setCoursePrice(0)
+        setDiscount(0)
+        setImage(null)
+        setChapters([])
+        quillRef.current.root.innerHTML = ""
+      } else (
+        toast.error(data.message)
+      )
+
+    } catch (error) {
+      toast.error(error.message)
+    }
+
+  };
 
   useEffect(() => {
     // Initiate Quill only once
@@ -98,18 +144,23 @@ const AddCourse = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(chapters);
+  }, [chapters]);
 
   return (
     <div className='h-screen overflow-scroll flex flex-col items-start justify-between md:p-8 md:pb-0 p-4 pt-8 pb-0'>
-      <form  onSubmit={handleSubmit} className='flex flex-col gap-4 max-w-md w-full text-gray-500'>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-4 max-w-md w-full text-gray-500'>
         <div className='flex flex-col gap-1'>
           <p>Course Title</p>
           <input onChange={e => setCourseTitle(e.target.value)} value={courseTitle} type="text" placeholder='Type here' className='outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500' required />
         </div>
+
         <div className='flex flex-col gap-1'>
           <p>Course Description</p>
           <div ref={editorRef}></div>
         </div>
+
         <div className='flex items-center justify-between flex-wrap'>
           <div className='flex flex-col gap-1'>
             <p>Course Price</p>
@@ -125,6 +176,7 @@ const AddCourse = () => {
             </label>
           </div>
         </div>
+
         <div className='flex flex-col gap-1'>
           <p>Discount %</p>
           <input onChange={e => setDiscount(e.target.value)} value={discount} type="number" placeholder='0' min={0} max={100} className='outline-none md:py-2.5 py-2 w-28 px-3 rounded border border-gray-500' required />
@@ -136,8 +188,8 @@ const AddCourse = () => {
             <div key={chapterIndex} className="bg-white border rounded-lg mb-4">
               <div className="flex justify-between items-center p-4 border-b">
                 <div className="flex items-center">
-                <img className={`mr-2 cursor-pointer transition-all ${chapter.collapsed && "-rotate-90"} `} onClick={() => handleChapter('toggle', chapter.chapterId)} src={assets.dropdown_icon} width={14} alt="" />
-                <span className="font-semibold">{chapterIndex + 1} {chapter.chapterTitle}</span>
+                  <img className={`mr-2 cursor-pointer transition-all ${chapter.collapsed && "-rotate-90"} `} onClick={() => handleChapter('toggle', chapter.chapterId)} src={assets.dropdown_icon} width={14} alt="" />
+                  <span className="font-semibold">{chapterIndex + 1} {chapter.chapterTitle}</span>
                 </div>
                 <span className="text-gray-500">{chapter.chapterContent.length} Lectures</span>
                 <img onClick={() => handleChapter('remove', chapter.chapterId)} src={assets.cross_icon} alt="" className='cursor-pointer' />
@@ -150,18 +202,17 @@ const AddCourse = () => {
                       <img onClick={() => handleLecture('remove', chapter.chapterId, lectureIndex)} src={assets.cross_icon} alt="" className='cursor-pointer' />
                     </div>
                   ))}
-                  <div onClick={() => handleLecture('add', chapter.chapterId)} className="inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2">
+                  <div className="inline-flex bg-gray-100 p-2 rounded cursor-pointer mt-2" onClick={() => handleLecture('add', chapter.chapterId)}>
                     + Add Lecture
                   </div>
                 </div>
               )}
-              </div>
-              
+            </div>
           ))}
-
-          <div onClick={() => handleChapter('add')}className="flex justify-center items-center bg-blue-100 p-2 rounded-lg cursor-pointer" >
+          <div className="flex justify-center items-center bg-blue-100 p-2 rounded-lg cursor-pointer" onClick={() => handleChapter('add')}>
             + Add Chapter
           </div>
+
           {showPopup && (
             <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
               <div className="bg-white text-gray-700 p-4 rounded relative w-full max-w-80">
@@ -206,17 +257,14 @@ const AddCourse = () => {
               </div>
             </div>
           )}
+        </div>
 
-
-          </div>
-
-          <button type="submit" className='bg-black text-white w-max py-2.5 px-8 rounded my-4'>
+        <button type="submit" className='bg-black text-white w-max py-2.5 px-8 rounded my-4'>
           ADD
-          </button>
-
-        </form>
+        </button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default AddCourse
+export default AddCourse;

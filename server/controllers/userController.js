@@ -1,8 +1,9 @@
 import Course from "../models/Course.js"
+import { CourseProgress } from "../models/CourseProgress.js"
 import { Purchase } from "../models/Purchase.js"
 import User from "../models/User.js"
 import stripe from "stripe"
-import { CourseProgress } from "../models/CourseProgress.js"
+
 
 
 // Get User Data
@@ -22,24 +23,6 @@ export const getUserData = async (req, res) => {
     } catch (error) {
         res.json({ success: false, message: error.message })
     }
-}
-
-// Users Enrolled Courses With Lecture Links
-export const userEnrolledCourses = async (req, res) => {
-
-    try {
-
-        const userId = req.auth.userId
-
-        const userData = await User.findById(userId)
-            .populate('enrolledCourses')
-
-        res.json({ success: true, enrolledCourses: userData.enrolledCourses })
-
-    } catch (error) {
-        res.json({ success: false, message: error.message })
-    }
-
 }
 
 // Purchase Course 
@@ -103,6 +86,24 @@ export const purchaseCourse = async (req, res) => {
     }
 }
 
+// Users Enrolled Courses With Lecture Links
+export const userEnrolledCourses = async (req, res) => {
+
+    try {
+
+        const userId = req.auth.userId
+
+        const userData = await User.findById(userId)
+            .populate('enrolledCourses')
+
+        res.json({ success: true, enrolledCourses: userData.enrolledCourses })
+
+    } catch (error) {
+        res.json({ success: false, message: error.message })
+    }
+
+}
+
 // Update User Course Progress
 export const updateUserCourseProgress = async (req, res) => {
 
@@ -159,6 +160,7 @@ export const getUserCourseProgress = async (req, res) => {
     }
 
 }
+
 // Add User Ratings to Course
 export const addUserRating = async (req, res) => {
 
