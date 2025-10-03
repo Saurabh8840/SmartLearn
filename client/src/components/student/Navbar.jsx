@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { assets } from '../../assets/assets';
+import { assets } from '../../assets/assets.js';
 import { Link, useLocation } from 'react-router-dom';
-import { AppContext } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext.jsx';
 import { useClerk, UserButton, useUser } from '@clerk/clerk-react';
 import { toast } from 'react-toastify';
 import axios from 'axios';

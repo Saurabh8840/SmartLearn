@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AppContext } from '../../context/AppContext'
+import { AppContext } from '../../context/AppContext.jsx'
 import axios from 'axios'
 import { Line } from 'rc-progress';
-import Footer from '../../components/student/Footer';
+import Footer from '../../components/student/Footer.jsx';
 
 const MyEnrollments = () => {
 

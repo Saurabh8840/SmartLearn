@@ -1,5 +1,5 @@
 import React from 'react';
-import { assets } from '../../assets/assets';
+import { assets } from '../../assets/assets.js';
 
 const Footer = () => {
   return (
@@ -14,7 +14,7 @@ const Footer = () => {
       <div className='flex items-center gap-3 max-md:mt-4'>
         <a href="#">
           <img src={assets.facebook_icon} alt="facebook_icon" />
-          
+
         </a>
         <a href="#">
           <img src={assets.twitter_logo} alt="twitter_icon" />

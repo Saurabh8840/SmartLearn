@@ -1,6 +1,6 @@
 import React from 'react';
-import { assets } from '../../assets/assets';
-import SearchBar from '../../components/student/SearchBar';
+import { assets } from '../../assets/assets.js';
+import SearchBar from '../../components/student/SearchBar.jsx';
 
 const Hero = () => {
   return (

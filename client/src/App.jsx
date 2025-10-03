@@ -1,20 +1,22 @@
+
+
 import React, { useContext } from 'react'
 import { Routes, Route, useLocation, useMatch } from 'react-router-dom'
-import Navbar from './components/student/Navbar'
-import Home from './pages/student/Home'
-import CourseDetails from './pages/student/CourseDetails'
-import CoursesList from './pages/student/CoursesList'
-import Dashboard from './pages/educator/Dashboard'
-import AddCourse from './pages/educator/AddCourse'
-import MyCourses from './pages/educator/MyCourses'
-import StudentsEnrolled from './pages/educator/StudentsEnrolled'
-import Educator from './pages/educator/Educator'
+import Navbar from './components/student/Navbar.jsx'
+import Home from './pages/student/Home.jsx'
+import CourseDetails from './pages/student/CourseDetails.jsx'
+import CoursesList from './pages/student/CoursesList.jsx'
+import Dashboard from './pages/educator/Dashboard.jsx'
+import AddCourse from './pages/educator/AddCourse.jsx'
+import MyCourses from './pages/educator/MyCourses.jsx'
+import StudentsEnrolled from './pages/educator/StudentsEnrolled.jsx'
+import Educator from './pages/educator/Educator.jsx'
 import 'quill/dist/quill.snow.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
-import Player from './pages/student/Player'
-import MyEnrollments from './pages/student/MyEnrollments'
-import Loading from './components/student/Loading'
+import Player from './pages/student/Player.jsx'
+import MyEnrollments from './pages/student/MyEnrollments.jsx'
+import Loading from './components/student/Loading.jsx'
 
 const App = () => {
 

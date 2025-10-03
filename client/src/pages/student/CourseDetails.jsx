@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Footer from '../../components/student/Footer';
-import { assets } from '../../assets/assets';
+import Footer from '../../components/student/Footer.jsx';
+import { assets } from '../../assets/assets.js';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { AppContext } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext.jsx';
 import { toast } from 'react-toastify';
 import humanizeDuration from 'humanize-duration'
 import YouTube from 'react-youtube';
 import { useAuth } from '@clerk/clerk-react';
-import Loading from '../../components/student/Loading';
+import Loading from '../../components/student/Loading.jsx';
 
 const CourseDetails = () => {
 

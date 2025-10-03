@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { assets } from '../../assets/assets';
+import { assets } from '../../assets/assets.js';
 import { toast } from 'react-toastify'
 import Quill from 'quill';
 import uniqid from 'uniqid';
 import axios from 'axios'
-import { AppContext } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext.jsx';
 
 const AddCourse = () => {
 

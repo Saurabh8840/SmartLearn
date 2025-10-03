@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { AppContext } from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext.jsx';
 import { toast } from 'react-toastify';
-import Loading from '../../components/student/Loading';
+import Loading from '../../components/student/Loading.jsx';
 
 const StudentsEnrolled = () => {
 
