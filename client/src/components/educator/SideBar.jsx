@@ -5,6 +5,8 @@ import { AppContext } from '../../context/AppContext.jsx';
 
 const SideBar = () => {
 
+  
+
   const { isEducator } = useContext(AppContext)
 
   const menuItems = [
